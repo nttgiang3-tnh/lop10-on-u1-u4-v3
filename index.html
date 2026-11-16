@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REVIEW QUEST U1–U4 — Version 3 · Lớp 10</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#e0f2fe,#fef9c3);color:#1e293b;min-height:100vh;padding:14px}
+.wrap{max-width:980px;margin:0 auto}
+h1{font-size:clamp(1.5rem,4vw,2.3rem);text-align:center;color:#0369a1;margin:8px 0 2px}
+.sub{text-align:center;color:#475569;font-size:1.05rem;margin-bottom:14px}
+.card{background:#fff;border-radius:18px;box-shadow:0 6px 18px rgba(2,132,199,.13);padding:20px;margin-bottom:16px;border:2px solid #e0f2fe}
+.screen{display:none}.screen.on{display:block}
+.btn{display:inline-block;background:#0284c7;color:#fff;border:none;border-radius:12px;padding:12px 22px;font-size:1.08rem;font-weight:700;cursor:pointer;margin:4px}
+.btn:hover{background:#0369a1}.btn.green{background:#16a34a}.btn.green:hover{background:#15803d}
+.btn.grey{background:#64748b}.btn.purple{background:#7c3aed}.btn.orange{background:#ea580c}
+.btn:disabled{background:#cbd5e1;cursor:not-allowed}
+input[type=text]{width:100%;padding:12px;font-size:1.1rem;border:2px solid #bae6fd;border-radius:12px;margin:6px 0}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.mitem{background:#fff;border-radius:18px;box-shadow:0 6px 18px rgba(2,132,199,.13);padding:20px;text-align:center;border:2px solid #e0f2fe;cursor:pointer}
+.mitem:hover{border-color:#38bdf8}
+.mitem .ic{font-size:2.4rem}.mitem .t{font-weight:800;font-size:1.2rem;margin:6px 0}.mitem .s{color:#16a34a;font-weight:700}
+.q{margin-bottom:18px;padding-bottom:14px;border-bottom:1px dashed #e2e8f0}
+.q .stem{font-size:1.18rem;font-weight:600;margin-bottom:10px;line-height:1.45}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:640px){.opts{grid-template-columns:1fr}}
+.opt{display:block;background:#f0f9ff;border:2px solid #bae6fd;border-radius:12px;padding:11px 14px;font-size:1.08rem;cursor:pointer;text-align:left;width:100%}
+.opt.sel{border-color:#0284c7;background:#e0f2fe;font-weight:700}
+.opt.right{border-color:#16a34a;background:#dcfce7}
+.opt.wrong{border-color:#dc2626;background:#fee2e2}
+.fb{margin-top:8px;font-size:1.02rem;display:none}.fb.show{display:block}
+.fb .ex{color:#475569;font-style:italic}
+.passage{background:#fffbeb;border:2px solid #fde68a;border-radius:14px;padding:16px;font-size:1.12rem;line-height:1.6;white-space:pre-line;margin-bottom:16px}
+.fc{text-align:center}
+.fc .word{font-size:2rem;font-weight:800;color:#0369a1}
+.fc .ipa{font-size:1.2rem;color:#7c3aed}
+.fc .img{font-size:4rem}
+.pill{display:inline-block;background:#fef3c7;border-radius:999px;padding:4px 14px;font-weight:700;margin:6px 0}
+.hidden{display:none}
+.mic-on{background:#dc2626!important;animation:pl 1s infinite}
+@keyframes pl{50%{opacity:.6}}
+.score-line{font-size:1.1rem;font-weight:700;color:#0369a1}
+table{width:100%;border-collapse:collapse;font-size:1.1rem}
+td,th{border-bottom:1px solid #e2e8f0;padding:9px;text-align:left}
+.total{font-size:1.5rem;font-weight:800;color:#16a34a;text-align:center;margin:12px 0}
+footer{text-align:center;color:#64748b;font-size:.92rem;padding:14px 6px 4px}
+textarea{width:100%;padding:10px;border:2px solid #bae6fd;border-radius:12px;font-size:1.05rem}
+.transcript-box{background:#f1f5f9;border-radius:12px;padding:14px;line-height:1.6;white-space:pre-line}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🏆 REVIEW QUEST — UNITS 1–4</h1>
+<p class="sub">Version 3 · Global Success 10 · Lớp 10 dạy thêm — Vocabulary · Grammar · Reading · Listening · Writing · Speaking</p>
+
+<div class="screen on" id="scr-home">
+  <div class="card" style="text-align:center">
+    <p style="font-size:1.15rem;margin-bottom:8px">Enter your full name to start:</p>
+    <input type="text" id="stuName" placeholder="e.g. Nguyen Van An" style="max-width:420px;text-align:center">
+    <br><button class="btn green" onclick="startGame()">▶ START</button>
+    <hr style="margin:18px 0;border:none;border-top:1px dashed #cbd5e1">
+    <p style="font-size:1.05rem">Have a recovery code? Paste it here:</p>
+    <input type="text" id="restoreCode" placeholder="ON10C-...." style="max-width:420px;text-align:center">
+    <br><button class="btn grey" onclick="restore()">Restore my progress</button>
+  </div>
+</div>
+
+<div class="screen" id="scr-menu">
+  <div class="card" style="text-align:center"><span class="score-line" id="menuInfo"></span></div>
+  <div class="menu">
+    <div class="mitem" onclick="go('scr-flash')"><div class="ic">🃏</div><div class="t">Flashcards</div><div>12 words · Units 1–4</div></div>
+    <div class="mitem" onclick="go('scr-vocab')"><div class="ic">📚</div><div class="t">Vocabulary</div><div>10 questions</div><div class="s" id="m-vocab"></div></div>
+    <div class="mitem" onclick="go('scr-grammar')"><div class="ic">🧩</div><div class="t">Grammar</div><div>10 questions</div><div class="s" id="m-grammar"></div></div>
+    <div class="mitem" onclick="go('scr-reading')"><div class="ic">📖</div><div class="t">Reading</div><div>1 passage · 6 questions</div><div class="s" id="m-reading"></div></div>
+    <div class="mitem" onclick="go('scr-listening')"><div class="ic">🎧</div><div class="t">Listening</div><div>1 recording · 5 questions</div><div class="s" id="m-listening"></div></div>
+    <div class="mitem" onclick="go('scr-writing')"><div class="ic">✍️</div><div class="t">Writing</div><div>5 transformations</div><div class="s" id="m-writing"></div></div>
+    <div class="mitem" onclick="go('scr-speaking')"><div class="ic">🎤</div><div class="t">Speaking</div><div>Shadowing + Answer by voice</div><div class="s" id="m-speaking"></div></div>
+    <div class="mitem" onclick="go('scr-report')"><div class="ic">📋</div><div class="t">Report Card</div><div>See your total score</div></div>
+  </div>
+  <p style="text-align:center;color:#64748b">🎤 For Speaking, please use <b>Google Chrome</b> and allow the microphone.</p>
+</div>
+
+<div class="screen" id="scr-flash">
+  <div class="card fc">
+    <div id="fcBox"></div>
+    <div>
+      <button class="btn grey" onclick="fcMove(-1)">◀ Previous</button>
+      <button class="btn purple" onclick="fcFlip()">🔄 Flip</button>
+      <button class="btn" onclick="speakText(DATA.flashcards[fcI].word)">🔊 Listen</button>
+      <button class="btn grey" onclick="fcMove(1)">Next ▶</button>
+    </div>
+    <p id="fcCount" style="margin-top:8px;color:#64748b"></p>
+  </div>
+  <button class="btn grey" onclick="go('scr-menu')">⬅ Back to menu</button>
+</div>
+
+<div class="screen" id="scr-vocab"><div class="card"><h2>📚 Vocabulary — choose the correct answer, then press Check for each question.</h2><div id="vocabBox"></div></div><button class="btn grey" onclick="go('scr-menu')">⬅ Back to menu</button></div>
+
+<div class="screen" id="scr-grammar"><div class="card"><h2>🧩 Grammar — choose the correct answer, then press Check for each question.</h2><div id="grammarBox"></div></div><button class="btn grey" onclick="go('scr-menu')">⬅ Back to menu</button></div>
+
+<div class="screen" id="scr-reading"><div class="card"><h2 id="readTitle">📖 Reading</h2><div class="passage" id="readPassage"></div><div id="readingBox"></div></div><button class="btn grey" onclick="go('scr-menu')">⬅ Back to menu</button></div>
+
+<div class="screen" id="scr-listening">
+  <div class="card"><h2 id="lisTitle">🎧 Listening</h2>
+    <p style="margin:6px 0">Listen carefully. You can play the recording as many times as you need.</p>
+    <button class="btn green" onclick="playScript()">▶ Play</button>
+    <button class="btn orange" onclick="stopSpeak()">⏹ Stop</button>
+    <button class="btn grey" onclick="toggleTranscript()" id="btnTranscript" disabled>📜 Show transcript (finish all questions first)</button>
+    <div class="transcript-box hidden" id="lisTranscript" style="margin-top:10px"></div>
+    <div id="listeningBox" style="margin-top:14px"></div>
+  </div>
+  <button class="btn grey" onclick="go('scr-menu')">⬅ Back to menu</button>
+</div>
+
+<div class="screen" id="scr-writing"><div class="card"><h2>✍️ Writing — rewrite each sentence as instructed, then press Check.</h2><div id="writingBox"></div></div><button class="btn grey" onclick="go('scr-menu')">⬅ Back to menu</button></div>
+
+<div class="screen" id="scr-speaking">
+  <div class="card"><h2>🎤 Speaking — Part 1: Shadowing</h2>
+    <p>Listen to each sentence, then press the microphone and repeat it. Score 80% or more to earn the point.</p>
+    <div id="shadowBox"></div>
+  </div>
+  <div class="card"><h2>🗣️ Speaking — Part 2: Answer by voice</h2>
+    <p>Press the microphone and answer each question in English (2–3 sentences). Your score depends on how many key ideas you include.</p>
+    <div id="qaBox"></div>
+  </div>
+  <button class="btn grey" onclick="go('scr-menu')">⬅ Back to menu</button>
+</div>
+
+<div class="screen" id="scr-report">
+  <div class="card"><h2 style="text-align:center">📋 REPORT CARD</h2>
+    <p style="text-align:center" id="repName"></p>
+    <table id="repTable"></table>
+    <div class="total" id="repTotal"></div>
+    <p style="text-align:center">📸 Take a screenshot of this report card and send it to your teacher.</p>
+    <p style="text-align:center;margin-top:10px">Your recovery code (keep it to continue later):</p>
+    <textarea id="repCode" rows="2" readonly></textarea>
+  </div>
+  <button class="btn grey" onclick="go('scr-menu')">⬅ Back to menu</button>
+</div>
+
+<footer>✍️ Created by Mrs. Thanh Giang — Giáo viên tiếng Anh, Trường THPT Chuyên Thoại Ngọc Hầu, tỉnh An Giang</footer>
+</div>
+<script>
+var DATA = {"flashcards": [{"ex": "My father is the breadwinner, but he still helps with the housework.", "ipa": "/ˈbredwɪnə(r)/", "vn": "người trụ cột, kiếm tiền nuôi gia đình", "word": "breadwinner"}, {"ex": "Children should show gratitude to parents who work hard for them.", "ipa": "/ˈɡrætɪtjuːd/", "vn": "lòng biết ơn", "word": "gratitude"}, {"ex": "Cycling to school helps reduce your carbon footprint.", "ipa": "/ˈkɑːbn ˈfʊtprɪnt/", "vn": "lượng khí thải carbon (của một người/hoạt động)", "word": "carbon footprint"}, {"ex": "These eco-friendly bags can be used many times.", "ipa": "/ˌiːkəʊ ˈfrendli/", "vn": "thân thiện với môi trường", "word": "eco-friendly"}, {"ex": "Turning off appliances at night saves a lot of electricity.", "ipa": "/əˈplaɪəns/", "vn": "thiết bị, đồ dùng gia dụng", "word": "appliance"}, {"ex": "The city is trying to cut emissions from motorbikes and cars.", "ipa": "/ɪˈmɪʃn/", "vn": "khí thải, sự phát thải", "word": "emission"}, {"ex": "The young singer became an idol for thousands of teenagers.", "ipa": "/ˈaɪdl/", "vn": "thần tượng", "word": "idol"}, {"ex": "The audience stood up and clapped at the end of the concert.", "ipa": "/ˈɔːdiəns/", "vn": "khán giả", "word": "audience"}, {"ex": "She is a talented pianist who practises for hours every day.", "ipa": "/ˈtæləntɪd/", "vn": "có tài, tài năng", "word": "talented"}, {"ex": "Many students donated old books to children in remote areas.", "ipa": "/dəʊˈneɪt/", "vn": "quyên góp, hiến tặng", "word": "donate"}, {"ex": "A generous businessman gave money to build a new library.", "ipa": "/ˈdʒenərəs/", "vn": "hào phóng, rộng lượng", "word": "generous"}, {"ex": "More than fifty students participated in the clean-up day.", "ipa": "/pɑːˈtɪsɪpeɪt/", "vn": "tham gia", "word": "participate"}], "grammar": [{"answer": 1, "explain": "Có 'Look!' và 'at the moment' → hiện tại tiếp diễn: is doing.", "options": ["does", "is doing", "do", "did"], "q": "Look! My little sister ______ the washing-up at the moment."}, {"answer": 2, "explain": "'Usually' → hiện tại đơn; chủ ngữ 'My dad' số ít → does.", "options": ["is doing", "do", "does", "are doing"], "q": "My dad usually ______ the heavy lifting at home because he is the strongest."}, {"answer": 0, "explain": "Quyết định/lời đề nghị ngay lúc nói → dùng will.", "options": ["will", "helps", "helped", "is help"], "q": "Watch out! The bag is too heavy for you. I ______ help you carry it."}, {"answer": 3, "explain": "Kế hoạch đã chuẩn bị sẵn → be going to.", "options": ["hold", "held", "holds", "are going to"], "q": "We have bought the tickets and the poster is ready. We ______ hold a charity concert next week."}, {"answer": 1, "explain": "Câu bị động hiện tại đơn: bottles (số nhiều) + are thrown away.", "options": ["throw", "are thrown", "throws", "threw"], "q": "Thousands of plastic bottles ______ away every day in our city."}, {"answer": 2, "explain": "Vế sau là kết quả của vế trước → dùng 'so'.", "options": ["but", "or", "so", "and"], "q": "She practised the song many times, ______ she performed it perfectly."}, {"answer": 0, "explain": "decide + to-V: decided to give.", "options": ["to give", "give", "giving", "given"], "q": "The judges decided ______ the first prize to the youngest singer."}, {"answer": 3, "explain": "make + O + V nguyên thể không 'to': made the students pick.", "options": ["to pick", "picking", "picked", "pick"], "q": "The teacher made the students ______ up the litter after the event."}, {"answer": 1, "explain": "Hành động đang diễn ra trong quá khứ bị cắt ngang → quá khứ tiếp diễn: were delivering.", "options": ["delivered", "were delivering", "deliver", "delivers"], "q": "While we ______ the gifts, it suddenly started to rain."}, {"answer": 2, "explain": "Tính từ -ed chỉ cảm xúc của người: excited.", "options": ["excite", "exciting", "excited", "excitement"], "q": "The children were really ______ when they received the new books."}], "listening": {"qs": [{"answer": 0, "explain": "Mai nói: 'I spent the whole weekend there' — tại trại trẻ mồ côi Sunrise.", "options": ["At Sunrise Orphanage", "At the park", "At school", "At home"], "q": "Where did Mai spend the weekend?"}, {"answer": 2, "explain": "Bài nghe: 'some children were playing football nearby'.", "options": ["Reading books", "Sleeping", "Playing football", "Cooking lunch"], "q": "What were the children doing while Mai and her friends were cleaning the yard?"}, {"answer": 1, "explain": "Bài nghe: 'we gave out books and toys after lunch'.", "options": ["New clothes", "Books and toys", "Football tickets", "Money"], "q": "What did the volunteers give the children after lunch?"}, {"answer": 3, "explain": "Bài nghe: 'they were preparing lunch in the kitchen and decorating the reading room'.", "options": ["Cleaning the yard", "Reading stories", "Playing football", "Preparing lunch and decorating the reading room"], "q": "What were some volunteers doing when Mai arrived?"}, {"answer": 2, "explain": "Tuan đồng ý tham gia chuyến thăm trại trẻ vào tháng tới.", "options": ["Stay at home", "Visit the park", "Join the visit to the orphanage", "Start a new club"], "q": "What will Tuan do next month?"}], "script": "Tuan: Hi Mai! I didn't see you at the park yesterday. Where were you?\nMai: I was volunteering at Sunrise Orphanage. I spent the whole weekend there with the Volunteer Club.\nTuan: That sounds great. What did you do?\nMai: On Saturday morning, while we were cleaning the yard, some children were playing football nearby. Then we gave out books and toys after lunch.\nTuan: What were the other volunteers doing when you arrived?\nMai: When I arrived, they were preparing lunch in the kitchen and decorating the reading room.\nTuan: Did the children like the books and toys?\nMai: They loved them! While I was reading a story, one little boy fell asleep in my arms. It was so sweet.\nTuan: Were you tired?\nMai: A bit, but I felt really happy. We are going to visit them again next month. Would you like to join us?\nTuan: Of course! I'd love to.", "title": "A Weekend at the Orphanage"}, "reading": {"passage": "At Nguyen Hue High School, making the school greener did not begin with a big project or a large amount of money. It started last semester with a small group of students who formed the Green Future Club. Their idea was simple: if everyone changed a few daily habits, the whole school would use less energy and produce less waste.\nFirst, the club put friendly reminders near classroom doors to ask students to switch off lights and fans when leaving. They also placed three recycling bins on each floor so that paper, plastic bottles and cans could be collected separately. In the canteen, students were encouraged to bring reusable bottles instead of buying new plastic ones every day. Teachers joined the campaign too by printing on both sides of paper and reusing old worksheets for notes. Volunteers from the club also checked the bins every Friday afternoon and gave small prizes to the cleanest class of the week.\nAfter only three months, the results surprised everyone. The school's electricity bill fell by fifteen per cent, and the amount of plastic waste dropped sharply. More importantly, students began to take pride in keeping their school clean and green. The club is now planning a small garden where each class will grow vegetables. Their story shows that protecting the environment does not always require grand plans. Small changes, repeated every day by many people, can make a real difference.", "qs": [{"answer": 1, "explain": "Toàn bài nói về những thay đổi nhỏ hằng ngày giúp trường xanh hơn.", "options": ["How a big company cleaned a school", "Small daily changes that made a school greener", "Why students should buy reusable bottles", "The history of the Green Future Club"], "q": "What is the passage mainly about?"}, {"answer": 2, "explain": "Bài đọc: 'three recycling bins on each floor'.", "options": ["One", "Two", "Three", "Five"], "q": "How many recycling bins did the club place on each floor?"}, {"answer": 0, "explain": "Bài đọc: giáo viên in hai mặt giấy và tái sử dụng giấy cũ.", "options": ["They printed on both sides of paper and reused old worksheets", "They bought new plastic bottles for students", "They switched off the lights in the garden", "They gave money to the club every week"], "q": "What did teachers do to join the campaign?"}, {"answer": 3, "explain": "Bài đọc: 'the electricity bill fell by fifteen per cent'.", "options": ["rose by fifteen per cent", "stayed exactly the same", "was paid by the club", "fell by fifteen per cent"], "q": "After three months, the school's electricity bill ______."}, {"answer": 2, "explain": "Bài đọc: câu lạc bộ dự định làm một khu vườn nhỏ để trồng rau.", "options": ["Build a new canteen", "Open a book club", "Grow vegetables in a small garden", "Hold a music concert"], "q": "What is the club planning to do next?"}, {"answer": 1, "explain": "Câu cuối bài: thay đổi nhỏ lặp lại mỗi ngày tạo nên khác biệt thật sự.", "options": ["Only big projects can protect the environment", "Small changes repeated daily can make a real difference", "Students should never use plastic at school", "Teachers must do all the green work alone"], "q": "What can we learn from the story?"}], "title": "Small Changes, Greener School"}, "shadow": ["My mother does the laundry while my father does the heavy lifting.", "We should switch off the lights to reduce our carbon footprint.", "The talented singer performed beautifully in front of a huge audience.", "Generous people donated money to build a school in a remote village.", "While we were delivering free meals, the old man smiled with gratitude."], "speakqa": [{"keywords": ["share chores", "do the laundry", "cooking", "washing-up", "grateful"], "model": "In my family, everyone shares the housework. My father does the heavy lifting and my mother usually cooks, while I do the washing-up after meals. Sharing chores makes us feel closer and more grateful to each other.", "q": "How are household chores shared in your family?"}, {"keywords": ["eco-friendly", "reduce", "carbon footprint", "recycle", "switch off"], "model": "Students can start with small habits such as switching off lights and fans when leaving the classroom. We can also recycle paper and plastic bottles and bring reusable bottles to reduce our carbon footprint. These eco-friendly actions are simple but very effective.", "q": "What can students do to live a greener life at school?"}, {"keywords": ["volunteer", "donate", "participate", "charity", "remote area"], "model": "Last summer, I joined a charity trip to a remote village with my school's Volunteer Club. We donated books and clothes and taught younger children English songs. It was tiring, but I felt proud because I could help others.", "q": "Have you ever done volunteer work? What did you do?"}], "vocab": [{"answer": 2, "explain": "homemaker = người nội trợ, ở nhà chăm sóc gia đình.", "options": ["idol", "judge", "homemaker", "breadwinner"], "q": "In my family, my mother is the ______ who stays at home and takes care of the children."}, {"answer": 3, "explain": "eco-friendly = thân thiện với môi trường = good for the environment.", "options": ["harmful to nature", "very expensive", "difficult to use", "good for the environment"], "q": "The word 'eco-friendly' is closest in meaning to ______."}, {"answer": 0, "explain": "Cụm cố định: raise money = gây quỹ, quyên góp tiền.", "options": ["raise", "rise", "lift", "grow"], "q": "The club plans to ______ money for poor children by selling handmade cards."}, {"answer": 1, "explain": "talented = có tài = gifted.", "options": ["lazy", "gifted", "ordinary", "nervous"], "q": "'Talented' is closest in meaning to ______."}, {"answer": 2, "explain": "adopt a lifestyle = bắt đầu theo đuổi một lối sống.", "options": ["invent", "ignore", "adopt", "adapt"], "q": "If we ______ a green lifestyle, we can protect the planet for future generations."}, {"answer": 3, "explain": "do the washing-up = rửa bát đĩa.", "options": ["laundry", "heavy lifting", "shopping", "washing-up"], "q": "After dinner, my brother usually does the ______ — he washes all the plates and bowls."}, {"answer": 0, "explain": "volunteer = tình nguyện viên, làm việc không lương để giúp người khác.", "options": ["works for free to help others", "is paid a high salary", "sells goods at a market", "travels abroad for fun"], "q": "A 'volunteer' is a person who ______."}, {"answer": 1, "explain": "concert = buổi hòa nhạc, buổi biểu diễn trực tiếp.", "options": ["kitchen", "concert", "library", "office"], "q": "Thousands of fans came to the ______ to watch their idol perform live."}, {"answer": 2, "explain": "deliver = mang đến, phân phát (bữa ăn, quà).", "options": ["borrow", "refuse", "deliver", "hide"], "q": "Volunteers will ______ free meals to elderly people in the village this Sunday."}, {"answer": 3, "explain": "emission = khí thải ra không khí.", "options": ["clean air", "green energy", "public transport", "gas released into the air"], "q": "'Emission' is closest in meaning to ______."}], "writing": [{"answers": ["I do the washing-up every day."], "explain": "Thói quen lặp lại → hiện tại đơn: do.", "model": "I do the washing-up every day.", "q": "I am doing the washing-up at the moment. → Rewrite the sentence with 'every day'."}, {"answers": ["Millions of plastic bottles are thrown away every day."], "explain": "Bị động hiện tại đơn: are + V3 (thrown).", "model": "Millions of plastic bottles are thrown away every day.", "q": "People throw away millions of plastic bottles every day. → Rewrite the sentence in the passive voice."}, {"answers": ["While we were cleaning the yard, the children were playing football.", "The children were playing football while we were cleaning the yard."], "explain": "Hai hành động cùng diễn ra trong quá khứ → quá khứ tiếp diễn với 'while'.", "model": "While we were cleaning the yard, the children were playing football.", "q": "We cleaned the yard. The children played football at the same time. → Combine the sentences with 'while'."}, {"answers": ["The teacher let the students leave early."], "explain": "let + O + V nguyên thể không 'to'.", "model": "The teacher let the students leave early.", "q": "The teacher allowed the students to leave early. → Rewrite the sentence with 'let'."}, {"answers": ["She wrote the volunteers a letter to thank them.", "She wrote them a letter to thank the volunteers."], "explain": "Dùng to-V để chỉ mục đích: to thank them.", "model": "She wrote the volunteers a letter to thank them.", "q": "She wanted to thank the volunteers, so she wrote them a letter. → Rewrite the sentence with a to-infinitive."}]};
+var PREFIX = "ON10C-";
+var MAXS = {vocab:10, grammar:10, reading:6, listening:5, writing:10, speaking:11};
+var S = {name:"", scores:{vocab:null,grammar:null,reading:null,listening:null,writing:null,shadow:null,qa:null}, sel:{}, checked:{}, wchecked:{}, shadowBest:{}, qaBest:{}, qaDone:{}};
+function $(id){return document.getElementById(id)}
+function go(id){document.querySelectorAll('.screen').forEach(function(e){e.classList.remove('on')});$(id).classList.add('on');window.scrollTo(0,0);if(id==='scr-menu')refreshMenu();if(id==='scr-report')renderReport()}
+function startGame(){var n=$('stuName').value.trim();if(!n){alert('Please enter your name first!');return}S.name=n;go('scr-menu')}
+function refreshMenu(){
+  $('menuInfo').textContent = '👋 ' + S.name + ' — Total so far: ' + totalScore() + ' / 52';
+  function put(id,key,max){var v=S.scores[key];$(id).textContent = (v===null||v===undefined)?'':('✔ ' + v + ' / ' + max)}
+  put('m-vocab','vocab',10); put('m-grammar','grammar',10); put('m-reading','reading',6); put('m-listening','listening',5); put('m-writing','writing',10);
+  var sp = (S.scores.shadow||0) + (S.scores.qa||0); var spDone = (S.scores.shadow!==null||S.scores.qa!==null);
+  $('m-speaking').textContent = spDone ? ('✔ ' + sp + ' / 11') : '';
+}
+function totalScore(){var t=0;['vocab','grammar','reading','listening','writing','shadow','qa'].forEach(function(k){if(S.scores[k])t+=S.scores[k]});return t}
+/* ---------- TTS ---------- */
+function pickVoice(){var vs=speechSynthesis.getVoices();for(var i=0;i<vs.length;i++){if(/en[-_]GB/i.test(vs[i].lang)&&/female|zira|sonia|libby/i.test(vs[i].name))return vs[i]}for(var i=0;i<vs.length;i++){if(/en[-_]GB/i.test(vs[i].lang))return vs[i]}for(var i=0;i<vs.length;i++){if(/^en/i.test(vs[i].lang))return vs[i]}return null}
+function speakText(t){speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-GB';var v=pickVoice();if(v)u.voice=v;u.rate=0.95;speechSynthesis.speak(u)}
+function stopSpeak(){speechSynthesis.cancel()}
+if('speechSynthesis' in window){speechSynthesis.getVoices()}
+/* ---------- Flashcards ---------- */
+var fcI=0, fcBack=false;
+function fcRender(){
+  var c=DATA.flashcards[fcI], box=$('fcBox');
+  if(!fcBack){box.innerHTML='<div class="img">🃏</div><div class="word">'+c.word+'</div><p style="color:#64748b">Tap Flip to see the meaning</p>'}
+  else{box.innerHTML='<div class="word">'+c.word+'</div><div class="ipa">'+c.ipa+'</div><br><span class="pill">'+c.vn+'</span><p style="font-size:1.1rem;margin-top:8px">'+c.ex+'</p>'}
+  $('fcCount').textContent='Card '+(fcI+1)+' / '+DATA.flashcards.length;
+}
+function fcFlip(){fcBack=!fcBack;fcRender()}
+function fcMove(d){fcI=(fcI+d+DATA.flashcards.length)%DATA.flashcards.length;fcBack=false;fcRender()}
+/* ---------- MCQ ---------- */
+function renderMCQ(boxId, items, key){
+  var box=$(boxId); box.innerHTML='';
+  items.forEach(function(it,qi){
+    var div=document.createElement('div'); div.className='q';
+    var h='<div class="stem">'+(qi+1)+'. '+it.q+'</div><div class="opts">';
+    it.options.forEach(function(op,oi){h+='<button type="button" class="opt" id="'+key+'-'+qi+'-'+oi+'" onclick="selOpt(\''+key+'\','+qi+','+oi+')">'+'ABCD'[oi]+'. '+op+'</button>'});
+    h+='</div><button class="btn" style="margin-top:8px" onclick="checkMCQ(\''+key+'\','+qi+')">Check</button><div class="fb" id="'+key+'-fb-'+qi+'"></div>';
+    div.innerHTML=h; box.appendChild(div);
+  });
+}
+function selOpt(key,qi,oi){if(S.checked[key+'-'+qi])return;S.sel[key+'-'+qi]=oi;var it=getItems(key)[qi];it.options.forEach(function(_,j){var b=$(key+'-'+qi+'-'+j);if(b)b.classList.toggle('sel',j===oi)})}
+function getItems(key){return key==='vocab'?DATA.vocab:key==='grammar'?DATA.grammar:key==='reading'?DATA.reading.qs:DATA.listening.qs}
+function checkMCQ(key,qi){
+  var id=key+'-'+qi; if(S.checked[id])return;
+  var sel=S.sel[id]; var fb=$(key+'-fb-'+qi);
+  if(sel===undefined){fb.className='fb show';fb.innerHTML='⚠️ Choose an answer first!';return}
+  S.checked[id]=true;
+  var it=getItems(key)[qi]; var right=sel===it.answer;
+  it.options.forEach(function(_,j){var b=$(key+'-'+qi+'-'+j);if(!b)return;b.classList.remove('sel');if(j===it.answer)b.classList.add('right');else if(j===sel)b.classList.add('wrong')});
+  fb.className='fb show'; fb.innerHTML=(right?'✅ <b>Correct!</b>':'❌ <b>Not correct.</b> The correct answer is <b>'+'ABCD'[it.answer]+'</b>.')+' <span class="ex">'+it.explain+'</span>';
+  recountMCQ(key);
+  if(key==='listening'){var done=DATA.listening.qs.every(function(_,j){return S.checked['listening-'+j]});if(done){var b=$('btnTranscript');b.disabled=false;b.textContent='📜 Show transcript'}}
+}
+function recountMCQ(key){
+  var items=getItems(key), sc=0;
+  items.forEach(function(it,qi){if(S.checked[key+'-'+qi]&&S.sel[key+'-'+qi]===it.answer)sc++});
+  S.scores[key]=sc;
+}
+/* ---------- Writing ---------- */
+function normText(s){return s.toLowerCase().replace(/[.,!?;:'"]/g,'').replace(/\s+/g,' ').trim()}
+function renderWriting(){
+  var box=$('writingBox'); box.innerHTML='';
+  DATA.writing.forEach(function(it,qi){
+    var div=document.createElement('div'); div.className='q';
+    div.innerHTML='<div class="stem">'+(qi+1)+'. '+it.q+'</div><input type="text" id="w-in-'+qi+'" placeholder="Type your sentence here..."><button class="btn" onclick="checkWriting('+qi+')">Check</button> <button class="btn grey" onclick="toggleModel(\'w\','+qi+')">Show Model</button><div class="fb" id="w-fb-'+qi+'"></div><div class="fb" id="w-model-'+qi+'">💡 <b>Model:</b> '+it.model+'</div>';
+    box.appendChild(div);
+  });
+}
+function toggleModel(kind,qi){var m=$(kind+'-model-'+qi);m.classList.toggle('show')}
+function checkWriting(qi){
+  if(S.wchecked[qi])return;
+  var val=normText($('w-in-'+qi).value); var fb=$('w-fb-'+qi);
+  if(!val){fb.className='fb show';fb.innerHTML='⚠️ Type your sentence first!';return}
+  S.wchecked[qi]=true;
+  var it=DATA.writing[qi]; var ok=it.answers.some(function(a){return normText(a)===val});
+  fb.className='fb show';
+  fb.innerHTML=(ok?'✅ <b>Correct! +2 points</b>':'❌ <b>Not quite.</b> Compare with the model below.')+' <span class="ex">'+it.explain+'</span>';
+  $('w-model-'+qi).classList.add('show');
+  var sc=0; DATA.writing.forEach(function(w,j){if(S.wchecked[j]&&w.answers.some(function(a){return normText(a)===normText($('w-in-'+j).value)}))sc+=2});
+  S.scores.writing=sc;
+}
+/* ---------- Listening ---------- */
+function playScript(){speakText(DATA.listening.script.replace(/\n/g,' '))}
+function toggleTranscript(){var t=$('lisTranscript');t.classList.toggle('hidden');if(!t.classList.contains('hidden'))t.textContent=DATA.listening.script}
+/* ---------- Speech Recognition ---------- */
+function normWords(s){return s.toLowerCase().replace(/[^a-z0-9' ]/g,' ').replace(/\s+/g,' ').trim().split(' ').filter(Boolean)}
+function matchPct(target, said){
+  var t=normWords(target), s=normWords(said); if(!t.length)return 0;
+  var pool={}; s.forEach(function(w){pool[w]=(pool[w]||0)+1});
+  var hit=0; t.forEach(function(w){if(pool[w]>0){hit++;pool[w]--}});
+  return Math.round(hit/t.length*100);
+}
+function startSR(onResult, btn){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('Speech recognition is not supported in this browser. Please use Google Chrome.');return}
+  var rec=new SR(); rec.lang='en-GB'; rec.interimResults=false; rec.maxAlternatives=1;
+  btn.classList.add('mic-on'); btn.textContent='🎙️ Listening... speak now!';
+  rec.onresult=function(e){var txt=e.results[0][0].transcript;onResult(txt)};
+  rec.onend=function(){btn.classList.remove('mic-on');btn.textContent='🎤 Try again'};
+  rec.onerror=function(){btn.classList.remove('mic-on');btn.textContent='🎤 Try again';alert('The microphone could not hear you clearly. Please try again in a quiet place.')};
+  try{rec.start()}catch(err){btn.classList.remove('mic-on')}
+}
+/* ---------- Speaking: shadowing ---------- */
+function renderShadow(){
+  var box=$('shadowBox'); box.innerHTML='';
+  DATA.shadow.forEach(function(sent,qi){
+    var div=document.createElement('div'); div.className='q';
+    div.innerHTML='<div class="stem">'+(qi+1)+'. “'+sent+'”</div>'
+      +'<button class="btn" onclick="speakText(DATA.shadow['+qi+'])">🔊 Listen</button> '
+      +'<button class="btn purple" id="sh-mic-'+qi+'" onclick="doShadow('+qi+',this)">🎤 Read this sentence</button>'
+      +'<div class="fb" id="sh-fb-'+qi+'"></div>';
+    box.appendChild(div);
+  });
+}
+function doShadow(qi,btn){
+  startSR(function(txt){
+    var pct=matchPct(DATA.shadow[qi],txt); var fb=$('sh-fb-'+qi); fb.className='fb show';
+    var best=S.shadowBest[qi]||0; if(pct>best)S.shadowBest[qi]=pct;
+    fb.innerHTML='🗣️ You said: “'+txt+'”<br><b>Score: '+pct+'%</b> '+(pct>=80?'✅ +1 point! Great pronunciation!':(pct>=50?'— Good try! Listen again and repeat slowly.':'— Listen carefully and try once more.'));
+    var sc=0; DATA.shadow.forEach(function(_,j){if((S.shadowBest[j]||0)>=80)sc++});
+    S.scores.shadow=sc;
+  },btn);
+}
+/* ---------- Speaking: Q&A ---------- */
+function renderQA(){
+  var box=$('qaBox'); box.innerHTML='';
+  DATA.speakqa.forEach(function(it,qi){
+    var div=document.createElement('div'); div.className='q';
+    div.innerHTML='<div class="stem">'+(qi+1)+'. '+it.q+'</div>'
+      +'<button class="btn" onclick="speakText(DATA.speakqa['+qi+'].q)">🔊 Listen to the question</button> '
+      +'<button class="btn purple" id="qa-mic-'+qi+'" onclick="doQA('+qi+',this)">🎤 Answer by voice</button> '
+      +'<button class="btn grey" onclick="toggleModel(\'qa\','+qi+')">Show Model</button>'
+      +'<div class="fb" id="qa-fb-'+qi+'"></div><div class="fb" id="qa-model-'+qi+'">💡 <b>Model:</b> '+it.model+'</div>';
+    box.appendChild(div);
+  });
+}
+function doQA(qi,btn){
+  startSR(function(txt){
+    var saidLow=txt.toLowerCase(); var it=DATA.speakqa[qi];
+    var found=it.keywords.filter(function(kw){return saidLow.indexOf(kw.toLowerCase())>=0});
+    var cov=it.keywords.length?found.length/it.keywords.length:0;
+    var pts=cov>=0.6?2:(cov>=0.35?1:0);
+    var best=S.qaBest[qi]||0; if(pts>best)S.qaBest[qi]=pts;
+    var fb=$('qa-fb-'+qi); fb.className='fb show';
+    fb.innerHTML='🗣️ You said: “'+txt+'”<br>Key ideas included: <b>'+found.length+' / '+it.keywords.length+'</b> ('+found.join(', ')+')<br><b>Score: '+pts+' / 2 points</b> '+(pts===2?'✅ Excellent answer!':(pts===1?'— Add more key ideas for full points.':'— Listen to the model and try again.'));
+    var sc=0; DATA.speakqa.forEach(function(_,j){sc+=(S.qaBest[j]||0)});
+    S.scores.qa=sc;
+  },btn);
+}
+/* ---------- Report & recovery ---------- */
+function renderReport(){
+  $('repName').innerHTML='Student: <b>'+(S.name||'—')+'</b>';
+  var rows=[['📚 Vocabulary',S.scores.vocab,10],['🧩 Grammar',S.scores.grammar,10],['📖 Reading',S.scores.reading,6],['🎧 Listening',S.scores.listening,5],['✍️ Writing',S.scores.writing,10],['🎤 Speaking — Shadowing',S.scores.shadow,5],['🗣️ Speaking — Answer by voice',S.scores.qa,6]];
+  var h=''; rows.forEach(function(r){h+='<tr><td>'+r[0]+'</td><td style="text-align:right;font-weight:700">'+(r[1]===null||r[1]===undefined?'—':r[1])+' / '+r[2]+'</td></tr>'});
+  $('repTable').innerHTML=h;
+  $('repTotal').textContent='TOTAL: '+totalScore()+' / 52';
+  var payload={n:S.name,s:S.scores};
+  $('repCode').value=PREFIX+btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+}
+function restore(){
+  var code=$('restoreCode').value.trim();
+  if(code.indexOf(PREFIX)!==0){alert('This code does not belong to this version. Check the code and try again.');return}
+  try{
+    var payload=JSON.parse(decodeURIComponent(escape(atob(code.slice(PREFIX.length)))));
+    S.name=payload.n||''; S.scores=payload.s||S.scores;
+    alert('Progress restored for '+S.name+'. Sections you finished keep their scores — open each section to review, or continue with the unfinished ones.');
+    go('scr-menu');
+  }catch(e){alert('The code is not valid. Please check and try again.')}
+}
+/* ---------- Init ---------- */
+$('readTitle').textContent='📖 Reading — '+DATA.reading.title;
+$('readPassage').textContent=DATA.reading.passage;
+$('lisTitle').textContent='🎧 Listening — '+DATA.listening.title;
+renderMCQ('vocabBox',DATA.vocab,'vocab');
+renderMCQ('grammarBox',DATA.grammar,'grammar');
+renderMCQ('readingBox',DATA.reading.qs,'reading');
+renderMCQ('listeningBox',DATA.listening.qs,'listening');
+renderWriting(); renderShadow(); renderQA(); fcRender();
+</script>
+</body>
+</html>
